@@ -1,7 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,6 +48,7 @@ implements ActionListener
 
 	public JLabel output = new JLabel("Player one's turn: Place a Piece");
 	public JButton showDepthToggle = new JButton();
+	public JButton reset = new JButton();
 	public GPanel panel = new GPanel();
 	public int end = 0;
 	private static final long serialVersionUID = 1L;
@@ -100,10 +100,16 @@ implements ActionListener
 		buttonUp.setBounds(150, 0, 45, 30);
 		buttonDown.setBounds(150, 200, 45, 30);
 		output.setBounds(150, 240, 600, 30);
-		showDepthToggle.setBounds(0, 240, 100, 30);
+		
+		showDepthToggle.setBounds(0, 210, 100, 30);
 		showDepthToggle.setMargin(new java.awt.Insets(1, 2, 1, 2));
 		showDepthToggle.setText("Show Depth");
 		showDepthToggle.addActionListener(this);
+		
+		reset.setBounds(0, 250, 100, 30);
+		reset.setMargin(new java.awt.Insets(1, 2, 1, 2));
+		reset.setText("Reset");
+		reset.addActionListener(this);
 
 		panel.setLayout(null);
 		panel.setBounds(80, 60, 500, 400);
@@ -124,6 +130,7 @@ implements ActionListener
 		panel.add(buttonDown);
 		panel.add(output);
 		panel.add(showDepthToggle);
+		panel.add(reset);
 
 
 		setBounds(100, 100, 500, 400);
@@ -153,6 +160,29 @@ implements ActionListener
 			displayTable();
 			return;
 		}
+		else if (source == reset)
+		{
+			for (int i = 0; i < Size; i++) {
+				for (int j = 0; j < Size; j++) {
+					for (int k = 0; k < Size; k++) {
+						this.space[i][j][k] = 0;
+					}
+				}
+			}
+			dirVar[0] = X;
+			dirVar[1] = Y;
+			dirVar[2] = Z;
+			
+			dir[0] = 1;
+			dir[1] = 1;
+			dir[2] = 1;
+			
+			playerActionType = "place";
+			playerTurn = 1;
+			displayTable();
+			return;
+		}
+		
 		if (this.playerActionType == "place")
 		{
 			if (source == button00)
